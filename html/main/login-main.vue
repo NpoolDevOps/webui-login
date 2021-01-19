@@ -1,11 +1,12 @@
 <template>
     <div>
-        <p>HHHHHHHHHHHHHH</p>
+        <loginframe></loginframe>
     </div>
 </template>
 <script>
 module.exports = {
     components: {
+        'loginframe': httpVueLoader('../login/login-frame.vue')
     }
 }
 </script>
