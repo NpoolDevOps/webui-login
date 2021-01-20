@@ -9,9 +9,11 @@
                 <el-form-item label="密码">
                     <el-input v-model="userLogin.password" type="password"></el-input>
                 </el-form-item>
-                <el-form-item class="login-hint">
-                    <el-button type="primary" @click="login(userLogin)">登录</el-button>
-                     <el-link type="primary">忘记密码</el-link>
+                <el-form-item>
+                    <div class="login-hint">
+                        <el-button type="primary" @click="login(userLogin)">登录</el-button>
+                        <el-link type="primary">忘记密码</el-link>
+                    </div>
                 </el-form-item>
             </el-form>
         </el-tab-pane>
@@ -44,6 +46,6 @@ module.exports = {
 }
 .login-hint {
     display: flex;
-    flex-direction: row-reverse;
+    justify-content: space-between;
 }
 </style>
