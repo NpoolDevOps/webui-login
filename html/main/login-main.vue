@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <loginframe></loginframe>
+    <div class="login-main">
+        <loginframe class="login-frame"></loginframe>
     </div>
 </template>
 <script>
@@ -11,13 +11,16 @@ module.exports = {
 }
 </script>
 <style scoped>
-.milestone {
-    width: 75%;
+.login-frame {
+    width: 30%;
+    height: 30%;
+    margin: auto;
 }
-.activity {
-    width: 25%;
-}
-.main-project {
+.login-main {
+    width: 100%;
+    height: 100%;
     display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 </style>

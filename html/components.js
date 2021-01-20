@@ -3,7 +3,7 @@ new Vue({
     el: "#app",
     router,
     components: {
-        'app': httpVueLoader('app.vue'),
+        'app': httpVueLoader('app.vue')
     }
 })
     
