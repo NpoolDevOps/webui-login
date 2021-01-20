@@ -10,7 +10,7 @@
                     <el-input v-model="userLogin.password" type="password"></el-input>
                 </el-form-item>
                 <el-form-item class="login-hint">
-                    <el-button type="primary" @click="login('ruleForm')">登录</el-button>
+                    <el-button type="primary" @click="login(userLogin)">登录</el-button>
                      <el-link type="primary">忘记密码</el-link>
                 </el-form-item>
             </el-form>
@@ -29,8 +29,7 @@ module.exports = {
         }
     },
     methods: {
-        login: function () {
-
+        login: function (userLogin) {
         }
     }
 }
