@@ -15,6 +15,7 @@ module.exports = {
     width: 30%;
     height: 30%;
     margin: auto;
+    border-radius: 5px;
 }
 .login-main {
     width: 100%;
@@ -22,5 +23,9 @@ module.exports = {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    background-image: url('../res/bg/common.bg.jpeg'); 
+    background-attachment: scroll; 
+    background-repeat: no-repeat;
+    background-size:100% 100%;
 }
 </style>
