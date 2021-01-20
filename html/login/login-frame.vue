@@ -41,7 +41,7 @@ module.exports = {
 }
 .login-form {
     margin-top: 20px;
-    margin-right: 40px;
+    margin-right: 20px;
 }
 .login-hint {
     display: flex;
