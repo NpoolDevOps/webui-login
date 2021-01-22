@@ -7,11 +7,11 @@
                     <el-input v-model="userLogin.username"></el-input>
                 </el-form-item>
                 <el-form-item label="密码">
-                    <el-input v-model="userLogin.password" type="password"></el-input>
+                    <el-input v-model="userLogin.passwd" type="password"></el-input>
                 </el-form-item>
                 <el-form-item>
                     <div class="login-hint">
-                        <el-button type="primary" @click="login(userLogin)">登录</el-button>
+                        <el-button type="primary" @click="login()">登录</el-button>
                         <el-link type="primary">忘记密码</el-link>
                     </div>
                 </el-form-item>
@@ -26,12 +26,35 @@ module.exports = {
             activeName: 'login',
             userLogin: {
                 username: '',
-                password: ''
+                passwd: ''
             }
         }
     },
     methods: {
-        login: function (userLogin) {
+        login: function () {
+			var qs = Qs;
+			const axios = require('axios').default;
+			axios({
+				url: '/api/login',
+				method: 'post',
+				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+				data: qs.stringify(this.userLogin),
+			}).then(function (response) {
+				let resp = response.data
+				if (resp.code == 0) {
+					console.log(resp.body.auth_code)
+					sessionStorage['auth_code'] = resp.body.auth_code
+
+					if (resp.body.url != "") {
+						window.location.href = resp.body.url
+					} else {
+						window.location.href = '/#/dashboard'
+					}
+					
+				} else {
+					alert("登录失败")
+				}
+		    })
         }
     }
 }
