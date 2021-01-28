@@ -22,31 +22,32 @@
 <script>
 module.exports = {
     data () {
+        var targeturl = window.location.href
+        targeturl = targeturl.split("?")[1]
         return {
             activeName: 'login',
             userLogin: {
                 username: '',
-                passwd: ''
+                passwd: '',
+                url: targeturl,
             }
         }
     },
     methods: {
         login: function () {
 			var qs = Qs;
-			const axios = require('axios').default;
+            const axios = require('axios').default;
 			axios({
 				url: '/api/login',
 				method: 'post',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 				data: qs.stringify(this.userLogin),
 			}).then(function (response) {
-				let resp = response.data
+                let resp = response.data
 				if (resp.code == 0) {
-					console.log(resp.body.auth_code)
-					sessionStorage['auth_code'] = resp.body.auth_code
-
 					if (resp.body.url != "") {
-						window.location.href = resp.body.url
+                        window.$cookies.set("authcode", resp.body.auth_code)
+                        window.location.href = resp.body.url
 					} else {
 						window.location.href = '/#/dashboard'
 					}
