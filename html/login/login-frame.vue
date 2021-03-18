@@ -38,7 +38,7 @@ module.exports = {
 			var qs = Qs;
             const axios = require('axios').default;
 			axios({
-				url: '/api/login',
+				url: 'https://login.npool.com/api/v0/user/login',
 				method: 'post',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
 				data: qs.stringify(this.userLogin),
