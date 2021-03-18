@@ -51,7 +51,6 @@ module.exports = {
 					} else {
 						window.location.href = '/#/dashboard'
 					}
-					
 				} else {
 					alert("登录失败")
 				}
