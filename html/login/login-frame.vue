@@ -54,16 +54,23 @@ module.exports = {
                 }),
 			}).then(function (response) {
                 let resp = response.data
-				if (resp.code == 0) {
-					if (resp.body.url != '') {
-                        this.$cookies.set("authcode", resp.body.auth_code)
-                        window.location.href = resp.body.url
-					} else {
-						window.location.href = '/#/dashboard'
-					}
-				} else {
-					alert("登录失败: " + resp.msg)
-				}
+
+                if (resp.code != 0) {
+                    const h = this.$createElement;
+                    this.$notify({
+                        title: '登錄失敗',
+                        message: h('i', {style: 'color: teal'}, resp.msg),
+                    })
+                    return
+                }
+
+                if (resp.body.url == '') {
+                    // GOTO default location
+                    return
+                }
+
+                this.$cookies.set("authcode", resp.body.auth_code)
+                window.location.href = resp.body.url
 		    })
         }
     }
