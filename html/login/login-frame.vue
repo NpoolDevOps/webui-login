@@ -57,10 +57,9 @@ module.exports = {
                 let resp = response.data
 
                 if (resp.code != 0) {
-                    const h = this.$createElement;
                     this.$notify({
                         title: '登錄失敗',
-                        message: h('i', {style: 'color: teal'}, resp.msg),
+                        message: resp.msg,
                     })
                     return
                 }
