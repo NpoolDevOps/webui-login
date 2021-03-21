@@ -20,9 +20,6 @@
     </el-tabs>
 </template>
 <script>
-const axios = require('axios').default;
-import { sha256 } from 'js-sha256';
-
 module.exports = {
     data () {
         return {
@@ -36,22 +33,28 @@ module.exports = {
     },
     methods: {
         login: function () {
-			var qs = Qs;
+            const axios = require('axios').default;
 
             let appId = this.$cookies.get('appid');
-            if (appId == "") {
-                this.$cookies.set(this.appId)
+            if (!appId || appId == '' || appId == 'null') {
+                appId = this.appId
             }
+            this.$cookies.set('appid', appId);
+
+            console.log(appId, this.appId)
+
+            let encPassword = sha256(this.userLogin.passwd);
 
 			axios({
 				url: 'https://auth.npool.com/api/v0/user/login',
 				method: 'post',
-				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				data: qs.stringify({
-                    username: this.userLogin.userLogin,
-                    passwd: sha256(this.userLogin.passwd).substring(0, 12),
+				headers: {'Content-Type': 'application/json'},
+				data: {
+                    username: this.userLogin.username,
+                    passwd: encPassword.substring(0, 12),
+                    appid: appId,
                     url: this.$route.params['target'],
-                }),
+                },
 			}).then(function (response) {
                 let resp = response.data
 
