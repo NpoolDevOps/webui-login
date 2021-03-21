@@ -43,17 +43,17 @@ module.exports = {
 
             let encPassword = sha256(this.userLogin.passwd);
 
-			axios({
-				url: 'https://auth.npool.com/api/v0/user/login',
-				method: 'post',
-				headers: {'Content-Type': 'application/json'},
-				data: {
+            axios({
+                url: 'https://auth.npool.top/api/v0/user/login',
+                method: 'post',
+                headers: {'Content-Type': 'application/json'},
+                data: {
                     username: this.userLogin.username,
                     passwd: encPassword.substring(0, 12),
                     appid: appId,
                     url: this.$route.params['target'],
                 },
-			}).then(function (response) {
+            }).then(function (response) {
                 let resp = response.data
 
                 if (resp.code != 0) {
@@ -72,7 +72,7 @@ module.exports = {
 
                 this.$cookies.set("authcode", resp.body.auth_code)
                 window.location.href = resp.body.url
-		    })
+            })
         }
     }
 }
