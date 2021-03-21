@@ -57,10 +57,10 @@ module.exports = {
                 let resp = response.data
 
                 if (resp.code != 0) {
-                    const h = this.$createElement;
-                    this.$notify({
+                    ELEMENT.Notification({
                         title: '登錄失敗',
-                        message: h('i', {style: 'color: teal'}, resp.msg),
+                        message: resp.msg,
+			type: 'error',
                     })
                     return
                 }
