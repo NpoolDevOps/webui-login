@@ -20,39 +20,49 @@
     </el-tabs>
 </template>
 <script>
+const axios = require('axios').default;
+import { sha256 } from 'js-sha256';
+
 module.exports = {
     data () {
-        var targeturl = window.location.href
-        targeturl = targeturl.split("?")[1]
         return {
             activeName: 'login',
             userLogin: {
                 username: '',
                 passwd: '',
-                url: targeturl,
-            }
+            },
+            appId: "00000000-0000-0000-0000-000000000000"
         }
     },
     methods: {
         login: function () {
 			var qs = Qs;
-            const axios = require('axios').default;
+
+            let appId = this.$cookies.get('appid');
+            if (appId == "") {
+                this.$cookies.set(this.appId)
+            }
+
 			axios({
-				url: 'https://login.npool.com/api/v0/user/login',
+				url: 'https://auth.npool.com/api/v0/user/login',
 				method: 'post',
 				headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-				data: qs.stringify(this.userLogin),
+				data: qs.stringify({
+                    username: this.userLogin.userLogin,
+                    passwd: sha256(this.userLogin.passwd).substring(0, 12),
+                    url: this.$route.params['target'],
+                }),
 			}).then(function (response) {
                 let resp = response.data
 				if (resp.code == 0) {
-					if (resp.body.url != "") {
-                        window.$cookies.set("authcode", resp.body.auth_code)
+					if (resp.body.url != '') {
+                        this.$cookies.set("authcode", resp.body.auth_code)
                         window.location.href = resp.body.url
 					} else {
 						window.location.href = '/#/dashboard'
 					}
 				} else {
-					alert("登录失败")
+					alert("登录失败: " + resp.msg)
 				}
 		    })
         }
