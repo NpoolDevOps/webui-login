@@ -41,8 +41,6 @@ module.exports = {
             }
             this.$cookies.set('appid', appId);
 
-            console.log(appId, this.appId)
-
             let encPassword = sha256(this.userLogin.passwd);
 
 			axios({
