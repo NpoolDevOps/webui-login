@@ -49,7 +49,7 @@ module.exports = {
                 headers: {'Content-Type': 'application/json'},
                 data: {
                     username: this.userLogin.username,
-                    passwd: encPassword.substring(0, 12),
+                    password: encPassword.substring(0, 12),
                     appid: appId,
                     url: this.$route.params['target'],
                 },
