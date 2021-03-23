@@ -40,10 +40,9 @@ module.exports = {
                 appId = this.appId
             }
             this.$cookies.set('appid', appId);
-
-            console.log(get_query())
-
             let encPassword = sha256(this.userLogin.passwd);
+
+            let querys = get_query();
 
             axios({
                 url: 'https://auth.npool.top/api/v0/user/login',
@@ -53,7 +52,7 @@ module.exports = {
                     username: this.userLogin.username,
                     password: encPassword.substring(0, 12),
                     appid: appId,
-                    url: this.$route.params['target'],
+                    url: querys.get('target'),
                 },
             }).then(function (response) {
                 let resp = response.data
@@ -62,14 +61,14 @@ module.exports = {
                     ELEMENT.Notification({
                         title: '登錄失敗',
                         message: resp.msg,
-			type: 'error',
+                        type: 'error',
                     })
-                    return
+                    return;
                 }
 
                 if (resp.body.url == '') {
                     // GOTO default location
-                    return
+                    return;
                 }
 
                 this.$cookies.set("authcode", resp.body.auth_code)
