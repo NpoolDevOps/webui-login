@@ -39,7 +39,7 @@ module.exports = {
             if (!appId || appId == '' || appId == 'null') {
                 appId = this.appId
             }
-            this.$cookies.set('appid', appId);
+            this.$cookies.set('appid', appId, domain='npool.top');
             let encPassword = sha256(this.userLogin.passwd);
 
             let querys = get_query();
@@ -52,7 +52,7 @@ module.exports = {
                     username: this.userLogin.username,
                     password: encPassword.substring(0, 12),
                     appid: appId,
-                    url: querys.get('target'),
+                    target_url: querys.get('target'),
                 },
             }).then(function (response) {
                 let resp = response.data
@@ -66,13 +66,13 @@ module.exports = {
                     return;
                 }
 
-                if (resp.body.url == '') {
+                if (resp.body.target_url == '') {
                     // GOTO default location
                     return;
                 }
 
-                this.$cookies.set("authcode", resp.body.auth_code)
-                window.location.href = resp.body.url
+		this.$cookies.set('authcode', resp.body.auth_code, '', '', 'npool.top');
+                window.location.href = resp.body.target_url
             })
         }
     }
